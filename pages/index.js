@@ -14,7 +14,7 @@ export default function Home() {
    return (
     <div className="container">
       <header>
-        <h1>Bun venit la magazinul de jucarii "Apolodor"!</h1>
+        <h1>Bun venit la magazinul de jucarii APOLODOR!</h1>
         <button onClick={openProductsPage} className="btn">Apasă aici pentru a naviga la pagina de produse</button>
       </header>
       <section className="section">
