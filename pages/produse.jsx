@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default function Produse() {
   const [products, setProducts] = useState([]); 
+  const [newProduct, setNewProduct] = useState({ nume: '', categorie: '', preț: 0 }); 
 
   const getProducts = async () => {
     try {
@@ -15,6 +16,44 @@ export default function Produse() {
     } catch (error) {
       console.error('Eroare la obținerea produselor:', error);
     }
+  };
+
+  const addProduct = async () => {
+    try {
+      const response = await axios.post('/api/produse', newProduct); 
+      if (response.data) {
+        console.log('Produs adăugat cu succes!');
+        getProducts();
+      }
+    } catch (error) {
+      console.error('Eroare la adăugarea produsului:', error);
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    try {
+      const response = await axios.delete(`/api/produse?id=${id}`);
+      if (response.data) {
+        console.log('Produsul a fost șters cu succes!');
+        getProducts();
+      }
+    } catch (error) {
+      console.error('Eroare la ștergerea produsului:', error);
+    }
+  };
+
+  const confirmDeleteProduct = (id) => {
+    if (window.confirm('Ești sigur că vrei să ștergi acest produs?')) {
+      deleteProduct(id);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewProduct(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   return (
@@ -31,7 +70,7 @@ export default function Produse() {
               <th>Nume</th>
               <th>Categorie</th>
               <th>Preț (lei)</th>
-              <th>Stoc</th>
+              <th>Acțiuni</th> 
             </tr>
           </thead>
           <tbody>
@@ -40,11 +79,20 @@ export default function Produse() {
                 <td>{product.nume}</td>
                 <td>{product.categorie}</td>
                 <td>{product.preț}</td>
-                <td>{product.stoc}</td>
+                <td>               
+                  <button onClick={() => confirmDeleteProduct(product._id)}>Șterge</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </section>
+      <section className="section">
+        <h2>Adaugă un nou produs</h2>
+        <input type="text" name="nume" placeholder="Numele produsului" value={newProduct.nume} onChange={handleInputChange} />
+        <input type="text" name="categorie" placeholder="Categoria produsului" value={newProduct.categorie} onChange={handleInputChange} />
+        <input type="number" name="preț" placeholder="Prețul produsului" value={newProduct.preț} onChange={handleInputChange} />
+        <button onClick={addProduct} className="btn">Adaugă produs</button>
       </section>
     </div>
   );

@@ -18,13 +18,10 @@ export default function Home() {
         <button onClick={openProductsPage} className="btn">Apasă aici pentru a naviga la pagina de produse</button>
       </header>
       <section className="section">
-        <p>Descoperiți o lume plină de culori și bucurie, unde fiecare raft este plin cu cele mai captivante și educative jucării. </p>
-        <br /> 
-        <br /> 
-        <p>De la clasicele păpuși și mașinuțe cu telecomandă, la seturile creative LEGO și puzzle-urile interactive, avem tot ce este nevoie pentru a stimula creativitatea și dezvoltarea copiilor. Explorează colecția noastră și surprinde-i pe cei mici cu cadouri care îi vor încânta și inspira în fiecare zi</p>
-        <br /> 
-        <br /> 
-        <p>Vă așteptăm cu drag să faceți parte din universul nostru plin de joc și distracție!</p>
+        <p>Aceasta este o platformă intuitivă și eficientă pentru gestionarea tuturor produselor din magazinul nostru</p>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <Image src="/logo-apolodor.jpg" width={400} height={200} />
+        </div>
       </section>
       <footer>
         <p>© Proiect Cloud Computing 2024 Grigore Raluca-Florentina</p>
