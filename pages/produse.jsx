@@ -82,7 +82,7 @@ export default function Produse() {
   return (
     <div className="container">
       <header>
-        <h1>Produsele "Apolodor"</h1>
+        <h1>Produsele APOLODOR</h1>
         <button onClick={getProducts} className="btn">Apasă aici pentru a afișa produsele</button>
       </header>
       <section className="section">
