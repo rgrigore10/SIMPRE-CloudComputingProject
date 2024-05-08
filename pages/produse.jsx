@@ -4,6 +4,7 @@ import axios from 'axios';
 export default function Produse() {
   const [products, setProducts] = useState([]); 
   const [newProduct, setNewProduct] = useState({ nume: '', categorie: '', preț: 0 }); 
+  const [editingProductId, setEditingProductId] = useState(null); 
 
   const getProducts = async () => {
     try {
@@ -48,6 +49,28 @@ export default function Produse() {
     }
   };
 
+  const editProduct = async (id) => {
+    const editedProduct = products.find(product => product._id === id);
+    if (editedProduct) {
+      setNewProduct({ ...editedProduct });
+      setEditingProductId(id);
+    }
+  };
+
+  const updateProduct = async () => {
+    try {
+      const response = await axios.put(`/api/produse?id=${editingProductId}`, newProduct);
+      if (response.data) {
+        console.log('Produsul a fost actualizat cu succes!');
+        getProducts();
+        setEditingProductId(null);
+        setNewProduct({ nume: '', categorie: '', preț: 0 });
+      }
+    } catch (error) {
+      console.error('Eroare la actualizarea produsului:', error);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewProduct(prevState => ({
@@ -81,6 +104,8 @@ export default function Produse() {
                 <td>{product.preț}</td>
                 <td>               
                   <button onClick={() => confirmDeleteProduct(product._id)}>Șterge</button>
+                  <br></br>
+                  <button onClick={() => editProduct(product._id)}>Editează</button>
                 </td>
               </tr>
             ))}
@@ -92,7 +117,11 @@ export default function Produse() {
         <input type="text" name="nume" placeholder="Numele produsului" value={newProduct.nume} onChange={handleInputChange} />
         <input type="text" name="categorie" placeholder="Categoria produsului" value={newProduct.categorie} onChange={handleInputChange} />
         <input type="number" name="preț" placeholder="Prețul produsului" value={newProduct.preț} onChange={handleInputChange} />
-        <button onClick={addProduct} className="btn">Adaugă produs</button>
+        {editingProductId ? (
+          <button onClick={updateProduct} className="btn">Actualizează produs</button>
+        ) : (
+          <button onClick={addProduct} className="btn">Adaugă produs</button>
+        )}
       </section>
     </div>
   );
