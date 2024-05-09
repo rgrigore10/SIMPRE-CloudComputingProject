@@ -1,40 +1,112 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Titlu: Aplicație pentru gestiunea produselor dintr-un magazin de jucării
+Nume: Grigore Raluca-Florentina
+Grupa: 1132
 
-## Getting Started
+Link video prezentare proiect: https://youtu.be/nLA97goOtgU 
+Link publicare Vercel: https://simpre-cloud-com-git-017eab-grigore-raluca-florentinas-projects.vercel.app
 
-First, run the development server:
+1. Introducere
+Această documentație descrie un proiect pentru gestionarea produselor într-un magazin de jucării. Proiectul include o aplicație web pentru gestionarea produselor, utilizând un API pentru a comunica cu baza de date și a efectua operațiile CRUD (Create, Read, Update, Delete).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Descriere problemă
+Problema adresată de acest proiect este gestionarea eficientă a produselor într-un magazin de jucării. Prin intermediul aplicației web, administratorul magazinului poate vizualiza, adăuga, actualiza și șterge produse.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Descriere API
+API-ul este o interfață pentru comunicarea între aplicație și baza de date. Acesta oferă endpoint-uri pentru a efectua operațiile CRUD asupra produselor. Endpoint-urile includ:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+GET /api/produse: Returnează toate produsele disponibile.
+POST /api/produse: Adaugă un nou produs.
+PUT /api/produse/:id: Actualizează un produs existent.
+DELETE /api/produse/:id: Șterge un produs existent.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+4. Flux de date
+Requeest GET:
+GET /api/produse
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Response GET:
+{
+    "data": [
+        {
+            "_id": "663a6b323992aebcaf6fce1b",
+            "nume": "Mașinuță cu telecomandă",
+            "categorie": "Jucării pentru copii",
+            "preț": "99.99"
+        },
+        {
+            "_id": "663a6b4d3992aebcaf6fce1d",
+            "nume": "Păpușă Barbie",
+            "categorie": "Păpuși și accesorii",
+            "preț": 49.99
+        },
+        {
+            "_id": "663a6b593992aebcaf6fce1f",
+            "nume": "Set de construcție LEGO",
+            "categorie": "Jocuri de construcție",
+            "preț": 79.99
+        },
+        {
+            "_id": "663a6b683992aebcaf6fce21",
+            "nume": "Puzzle pentru copii",
+            "categorie": "Jocuri educative",
+            "preț": 19.99
+        }
+    ]
+}
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Request POST:
+POST /api/produse
+Content-Type: application/json
+{
+  "nume": "Tablă de desen magnetică",
+  "categorie": "Jucării creative",
+  "preț": 39.99
+}
 
-## Learn More
+Response POST:
+{
+    "data": {
+        "acknowledged": true,
+        "insertedId": "663bbc9a53ee1fa6eda1b577"
+    }
+}
 
-To learn more about Next.js, take a look at the following resources:
+Request PUT:
+PUT /api/produse?id=663bbc9a53ee1fa6eda1b577
+Content-Type: application/json
+{
+   "_id":"663bbc9a53ee1fa6eda1b577",
+   "nume": "Tablă de desen magnetică",
+   "categorie": "Jucării creative",
+   "preț": 69.99
+}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Response PUT:
+{
+    "data": {
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
+    }
+}
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Request DELETE:
+DELETE /api/produse?id=663a6b763992aebcaf6fce23
 
-## Deploy on Vercel
+Response DELETE:
+{
+    "data": {
+        "acknowledged": true,
+        "deletedCount": 1
+    }
+}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Capturi de ecran aplicație
+![Home page aplicație](home-page.png)
+![Vizualizare produse cu optiunea de editare/stergere](tabel-produse.png)
+![Secțiune adăugare produs nou](adaugare-produs.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+6. Referinte
+https://lungu-mihai-adrian.gitbook.io/cloud-computing-2024-simpre
+https://github.com/MihaiAdrianLungu/SIMPRE-2024
